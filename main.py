@@ -7,8 +7,8 @@ import copy
 import logging
 import random
 
-import smtplib
-from email.mime.text import MIMEText
+# import smtplib
+# from email.mime.text import MIMEText
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -174,13 +174,13 @@ def client_sign(bduss, tbs, fid, kw):
     return res
 
 def send_email(sign_list):
-    if ('HOST' not in ENV or 'FROM' not in ENV or 'TO' not in ENV or 'AUTH' not in ENV):
-        logger.error("未配置邮箱")
-        return
-    HOST = ENV['HOST']
-    FROM = ENV['FROM']
-    TO = ENV['TO'].split('#')
-    AUTH = ENV['AUTH']
+    # if ('HOST' not in ENV or 'FROM' not in ENV or 'TO' not in ENV or 'AUTH' not in ENV):
+    #     logger.error("未配置邮箱")
+    #     return
+    # HOST = ENV['HOST']
+    # FROM = ENV['FROM']
+    # TO = ENV['TO'].split('#')
+    # AUTH = ENV['AUTH']
     length = len(sign_list)
     subject = f"{time.strftime('%Y-%m-%d', time.localtime())} 签到{length}个贴吧"
     body = """
@@ -205,11 +205,11 @@ def send_email(sign_list):
         """
     msg = MIMEText(body, 'html', 'utf-8')
     msg['subject'] = subject
-    smtp = smtplib.SMTP()
-    smtp.connect(HOST)
-    smtp.login(FROM, AUTH)
-    smtp.sendmail(FROM, TO, msg.as_string())
-    smtp.quit()
+    # smtp = smtplib.SMTP()
+    # smtp.connect(HOST)
+    # smtp.login(FROM, AUTH)
+    # smtp.sendmail(FROM, TO, msg.as_string())
+    # smtp.quit()
 
 def main():
     if ('BDUSS' not in ENV):
@@ -224,7 +224,7 @@ def main():
             time.sleep(random.randint(1,5))
             client_sign(i, tbs, j["id"], j["name"])
         logger.info("完成第" + str(n) + "个用户签到")
-    send_email(favorites)
+    # send_email(favorites)
     logger.info("所有用户签到结束")
 
 
